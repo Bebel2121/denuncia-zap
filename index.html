@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Central de Denúncias</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  text-align: center;
+}
+
+.container {
+  margin-top: 80px;
+  background: rgba(0,0,0,0.6);
+  padding: 25px;
+  border-radius: 15px;
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 20px #a855f7;
+}
+
+h1 {
+  color: #c084fc;
+  text-shadow: 0 0 10px #a855f7;
+}
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+input {
+  background: #1e1b4b;
+  color: white;
+}
+
+button {
+  background: #a855f7;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px #a855f7;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #9333ea;
+}
+
+.loading {
+  display: none;
+  margin-top: 20px;
+}
+
+.bar {
+  width: 100%;
+  height: 10px;
+  background: #1e1b4b;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background: #a855f7;
+  animation: load 3s linear forwards;
+}
+
+@keyframes load {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #a855f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #c084fc;
+}
+
+.pix {
+  margin-top: 15px;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+}
+
+.copy-msg {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Central de Denúncias</h1>
+
+  <input type="text" id="numero" placeholder="Digite o número">
+  <input type="number" id="qtd" placeholder="Qtd denúncias">
+
+  <button onclick="denunciar()">Denunciar</button>
+
+  <div class="loading" id="loading">
+    <p>Processando denúncias...</p>
+    <div class="bar">
+      <div class="progress"></div>
+    </div>
+  </div>
+
+  <button class="pix" onclick="copiarPix()">Copiar PIX</button>
+  <div class="copy-msg" id="copyMsg"></div>
+
+  <button onclick="jaPaguei()">Já fiz o pagamento</button>
+</div>
+
+<div class="popup" id="popup">
+  ✔ Denúncias enviadas com sucesso!
+</div>
+
+<script>
+function denunciar() {
+  let numero = document.getElementById("numero").value;
+  let qtd = document.getElementById("qtd").value;
+
+  if (!numero || !qtd) {
+    alert("Preencha tudo!");
+    return;
+  }
+
+  document.getElementById("loading").style.display = "block";
+
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("popup").style.display = "block";
+
+    setTimeout(() => {
+      document.getElementById("popup").style.display = "none";
+    }, 3000);
+
+  }, 3000);
+}
+
+// PIX
+function copiarPix() {
+  let chave = "16267385728";
+  navigator.clipboard.writeText(chave);
+
+  document.getElementById("copyMsg").innerText = "Chave PIX copiada!";
+}
+
+// WhatsApp
+function jaPaguei() {
+  let numero = "5521990682259"; // seu número
+  let msg = "Já fiz o pagamento do acesso!";
+  let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(msg);
+
+  window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
