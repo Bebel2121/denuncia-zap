@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Central denúncia Wa</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:'Orbitron',sans-serif;
+    background:#050505;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+/* FUNDO */
+
+body::before{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    background:
+    radial-gradient(circle at center, rgba(255,0,0,0.2), transparent 30%),
+    repeating-linear-gradient(
+    90deg,
+    rgba(255,0,0,0.03) 0px,
+    rgba(255,0,0,0.03) 2px,
+    transparent 2px,
+    transparent 100px
+    );
+    animation:bgMove 15s linear infinite;
+}
+
+@keyframes bgMove{
+    0%{
+        transform:translate(0,0);
+    }
+    100%{
+        transform:translate(-200px,-200px);
+    }
+}
+
+/* PARTÍCULAS */
+
+.particles{
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:0;
+}
+
+.particles span{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:red;
+    border-radius:50%;
+    box-shadow:
+    0 0 10px red,
+    0 0 20px red,
+    0 0 40px red;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(100vh) scale(0);
+        opacity:0;
+    }
+    50%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-10vh) scale(1);
+        opacity:0;
+    }
+}
+
+/* CARD */
+
+.container{
+    position:relative;
+    z-index:2;
+    width:420px;
+    padding:35px;
+    border-radius:25px;
+    background:rgba(0,0,0,0.65);
+    border:1px solid rgba(255,0,0,0.4);
+    backdrop-filter:blur(15px);
+    box-shadow:
+    0 0 15px red,
+    0 0 40px rgba(255,0,0,0.5),
+    inset 0 0 25px rgba(255,0,0,0.2);
+    animation:pulse 3s infinite alternate;
+}
+
+@keyframes pulse{
+    from{
+        box-shadow:
+        0 0 15px red,
+        0 0 40px rgba(255,0,0,0.5),
+        inset 0 0 25px rgba(255,0,0,0.2);
+    }
+
+    to{
+        box-shadow:
+        0 0 25px red,
+        0 0 70px rgba(255,0,0,0.8),
+        inset 0 0 35px rgba(255,0,0,0.4);
+    }
+}
+
+/* TITULO */
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo h1{
+    color:white;
+    font-size:42px;
+    font-weight:800;
+    letter-spacing:4px;
+    text-shadow:
+    0 0 10px red,
+    0 0 30px red,
+    0 0 60px red;
+    animation:titleGlow 2s infinite alternate;
+}
+
+@keyframes titleGlow{
+    from{
+        text-shadow:
+        0 0 10px red,
+        0 0 30px red;
+    }
+
+    to{
+        text-shadow:
+        0 0 20px red,
+        0 0 50px red,
+        0 0 100px red;
+    }
+}
+
+.logo p{
+    color:#999;
+    margin-top:8px;
+    font-size:12px;
+}
+
+/* INPUTS */
+
+.inputBox{
+    margin-top:18px;
+}
+
+.inputBox label{
+    color:#ff3d3d;
+    font-size:13px;
+    display:block;
+    margin-bottom:8px;
+}
+
+.inputBox input,
+.inputBox select{
+    width:100%;
+    padding:15px;
+    border-radius:14px;
+    border:1px solid rgba(255,0,0,0.5);
+    background:#080808;
+    color:white;
+    outline:none;
+    transition:0.3s;
+    font-family:'Orbitron',sans-serif;
+}
+
+.inputBox input:focus,
+.inputBox select:focus{
+    border-color:red;
+    box-shadow:
+    0 0 10px red,
+    0 0 30px rgba(255,0,0,0.6);
+}
+
+/* BOTÃO */
+
+button{
+    width:100%;
+    padding:18px;
+    margin-top:28px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(90deg,#700000,#ff0000,#700000);
+    background-size:300% 300%;
+    color:white;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:0.3s;
+    animation:btnAnim 4s infinite;
+    box-shadow:
+    0 0 20px red,
+    0 0 40px rgba(255,0,0,0.5);
+}
+
+@keyframes btnAnim{
+    0%{
+        background-position:0% 50%;
+    }
+    50%{
+        background-position:100% 50%;
+    }
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:
+    0 0 35px red,
+    0 0 80px red;
+}
+
+/* LOADING */
+
+.loading{
+    margin-top:25px;
+    display:none;
+}
+
+.loadingText{
+    color:#ff3d3d;
+    margin-bottom:10px;
+    text-align:center;
+    font-size:13px;
+}
+
+.bar{
+    width:100%;
+    height:16px;
+    background:#111;
+    border-radius:30px;
+    overflow:hidden;
+    border:1px solid rgba(255,0,0,0.4);
+}
+
+.progress{
+    width:0%;
+    height:100%;
+    border-radius:30px;
+    background:linear-gradient(90deg,#ff0000,#ff4d4d,#ff0000);
+    box-shadow:
+    0 0 20px red,
+    0 0 40px red;
+    animation:load 3s linear forwards;
+}
+
+@keyframes load{
+    from{
+        width:0%;
+    }
+    to{
+        width:100%;
+    }
+}
+
+/* POPUP */
+
+.popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    background:#0d0d0d;
+    border:1px solid red;
+    padding:25px 40px;
+    border-radius:20px;
+    color:white;
+    z-index:10;
+    box-shadow:
+    0 0 20px red,
+    0 0 60px red;
+    transition:0.4s;
+}
+
+.popup.active{
+    transform:translate(-50%,-50%) scale(1);
+}
+
+/* LINHAS */
+
+.lines{
+    position:absolute;
+    width:100%;
+    height:100%;
+    z-index:1;
+    pointer-events:none;
+}
+
+.lines::before,
+.lines::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:2px;
+    background:linear-gradient(90deg,transparent,red,transparent);
+    animation:scan 4s linear infinite;
+}
+
+.lines::after{
+    top:70%;
+    animation-delay:2s;
+}
+
+@keyframes scan{
+    0%{
+        transform:translateY(-100px);
+        opacity:0;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="particles">
+    <span style="left:10%; animation-duration:8s;"></span>
+    <span style="left:20%; animation-duration:12s;"></span>
+    <span style="left:35%; animation-duration:7s;"></span>
+    <span style="left:50%; animation-duration:10s;"></span>
+    <span style="left:65%; animation-duration:14s;"></span>
+    <span style="left:80%; animation-duration:9s;"></span>
+    <span style="left:90%; animation-duration:11s;"></span>
+</div>
+
+<div class="lines"></div>
+
+<div class="container">
+
+    <div class="logo">
+        <h1>Central Denúncia Wa</h1>
+        <p>Ban em até 24 horas</p>
+    </div>
+
+    <div class="inputBox">
+        <label>+55 99 99999-9999</label>
+        <input type="text" placeholder="Digite o número">
+    </div>
+
+    <div class="inputBox">
+        <label>QUANTIDADE</label>
+
+        <select>
+            <option>Selecione</option>
+            <option>1000</option>
+            <option>2000</option>
+            <option>3000</option>
+            <option>4000</option>
+            <option>5000</option>
+            <option>6000</option>
+            <option>7000</option>
+            <option>8000</option>
+            <option>9000</option>
+            <option>10000</option>
+        </select>
+    </div>
+
+    <button onclick="enviar()">
+        ENVIAR
+    </button>
+
+    <div class="loading" id="loading">
+        <div class="loadingText">
+            PROCESSANDO...
+        </div>
+
+        <div class="bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="popup" id="popup">
+    ✔ AÇÃO CONCLUÍDA
+</div>
+
+<script>
+
+function enviar(){
+
+    // =========================
+    // COLOQUE SUA API AQUI
+    // =========================
+
+    const api = "https://cdn.tailwindcss.com";
+
+    // EXEMPLO DE ENVIO PRA API
+
+    fetch("https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css", {
+        method: "POST",
+
+        headers:{
+            "Authorization": api,
+            "Content-Type":"application/json"
+        },
+
+        body: JSON.stringify({
+            numero: document.querySelector("input").value,
+            quantidade: document.querySelector("select").value
+        })
+
+    })
+
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+    })
+
+    .catch(err => {
+        console.log(err);
+    });
+
+    // =========================
+    // LOADING
+    // =========================
+
+    let loading = document.getElementById("loading");
+    let popup = document.getElementById("popup");
+
+    loading.style.display = "block";
+
+    setTimeout(() => {
+
+        loading.style.display = "none";
+
+        popup.classList.add("active");
+
+        setTimeout(() => {
+            popup.classList.remove("active");
+        },3000);
+
+    },3000);
+}
+
+    let loading = document.getElementById("loading");
+    let popup = document.getElementById("popup");
+
+    loading.style.display = "block";
+
+    setTimeout(() => {
+
+        loading.style.display = "none";
+
+        popup.classList.add("active");
+
+        setTimeout(() => {
+            popup.classList.remove("active");
+        },3000);
+
+    },3000);
+}
+
+</script>
+
+</body>
+</html>
